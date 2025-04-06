@@ -1,0 +1,15 @@
+# Build artifacts
+bin/
+obj/
+
+# Rider
+.idea/
+*.sln.iml
+
+# User-specific files
+*.user
+*.suo
+
+# OS junk
+.DS_Store
+Thumbs.db
