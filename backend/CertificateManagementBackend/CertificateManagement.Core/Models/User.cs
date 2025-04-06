@@ -18,6 +18,9 @@ namespace CertificateManagement.Core.Models
 
         [EmailAddress]
         public string Email { get; set; }
+        
+        [Required]
+        public UserRole Role { get; set; } = UserRole.Verifier;
 
         public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
     }

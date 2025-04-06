@@ -1,6 +1,8 @@
+using System.Text;
 using CertificateManagement.WebAPI.Contexts;
 using Ipfs.Http;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 
 namespace CertificateManagement.WebAPI
 {
@@ -21,6 +23,26 @@ namespace CertificateManagement.WebAPI
                               .AllowAnyHeader();
                     });
             });
+            
+            // Добавляем JWT аутентификацию для разграничения ролей
+            builder.Services.AddAuthentication("Bearer")
+                .AddJwtBearer("Bearer", options =>
+                {
+                    options.TokenValidationParameters = new TokenValidationParameters
+                    {
+                        ValidateIssuer = true,
+                        ValidateAudience = true,
+                        ValidateLifetime = true,
+                        ValidateIssuerSigningKey = true,
+                        ValidIssuer = builder.Configuration["Jwt:Issuer"],
+                        ValidAudience = builder.Configuration["Jwt:Audience"],
+                        IssuerSigningKey = new SymmetricSecurityKey(
+                            Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Secret"]))
+                    };
+                });
+
+            builder.Services.AddAuthorization();
+
 
             // Добавляем сервисы
             builder.Services.AddControllers();
