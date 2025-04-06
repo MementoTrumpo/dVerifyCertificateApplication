@@ -5,10 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="832743a8-39d1-4004-a6fe-627052cc0c01" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../backend/CertificateManagementBackend/CertificateManagement.Core/Models/User.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../backend/CertificateManagementBackend/CertificateManagement.Core/Models/User.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/api/CertificateAPI.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/api/CertificateAPI.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/UploadCertificate.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/UploadCertificate.tsx" afterDir="false" />
     </list>
@@ -59,7 +57,7 @@
       <option name="presentableId" value="Default" />
       <updated>1742415574106</updated>
       <workItem from="1742415576121" duration="1167000" />
-      <workItem from="1743951863802" duration="1901000" />
+      <workItem from="1743951863802" duration="2927000" />
     </task>
     <servers />
   </component>

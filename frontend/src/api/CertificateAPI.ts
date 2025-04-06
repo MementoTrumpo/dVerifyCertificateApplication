@@ -30,7 +30,7 @@ export async function getCertificate(certId: number): Promise<any> {
     throw new Error("Не удалось подключиться к блокчейну");
   }
   const { provider } = blockchain;
-  const contract = new ethers.Contract(CONTRACT_ADDRESS, contractABI.abi, provider);
+  const contract = new ethers.Contract(CONTRACT_ADDRESS, CONTRACT_ABI, provider);
   try {
     const certificate = await contract.getCertificate(certId);
     return {
