@@ -1,11 +1,12 @@
-// CertificateAPI.ts
 import { ethers } from "ethers";
-import { getBlockchain } from "./BlockchainService"; // убедитесь, что путь корректный
-// Предполагается, что эта функция возвращает объект { signer, contract, provider }
+import { getBlockchain } from "./BlockchainService";
 import contractABI from "../Certificates.json"; // путь к ABI контракта
+import { API_URL } from "../../../shared/config";
+import contract from "../../../shared/contract.json";
 
-const API_URL = "http://localhost:8545/api/certificates"; // замените на ваш URL
-const CONTRACT_ADDRESS = "0x474d22D05033A3ccfB5743f97cD1F73e19Cc4375"; // замените на адрес вашего контракта
+export const CONTRACT_ABI = contract.abi;// ABI контракта
+export const CONTRACT_ADDRESS = contract.address;// Адрес контракта
+
 
 export interface Metadata {
   [key: string]: any;

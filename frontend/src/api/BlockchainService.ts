@@ -1,8 +1,9 @@
 // BlockchainService.ts
 import { ethers } from "ethers";
-import contractABI from "../Certificates.json"; // путь к ABI контракта
+import contract from "../../../shared/contract.json";
 
-const CONTRACT_ADDRESS = "0x474d22D05033A3ccfB5743f97cD1F73e19Cc4375"; // Замените на адрес вашего контракта
+export const CONTRACT_ABI = contract.abi;
+export const CONTRACT_ADDRESS = contract.address;
 
 export async function getBlockchain() {
   if (!window.ethereum) {
@@ -13,6 +14,6 @@ export async function getBlockchain() {
   // Создаём провайдера, получаем signer и контракт
   const provider = new ethers.BrowserProvider(window.ethereum);
   const signer = await provider.getSigner();
-  const contract = new ethers.Contract(CONTRACT_ADDRESS, contractABI.abi, signer);
+  const contract = new ethers.Contract(CONTRACT_ADDRESS, CONTRACT_ABI, signer);
   return { provider, signer, contract };
 }
