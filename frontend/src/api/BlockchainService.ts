@@ -1,6 +1,6 @@
 // BlockchainService.ts
 import { ethers } from "ethers";
-import contract from "../../../shared/contract.json";
+import contract from "../shared/contract.json";
 
 export const CONTRACT_ABI = contract.abi;
 export const CONTRACT_ADDRESS = contract.address;

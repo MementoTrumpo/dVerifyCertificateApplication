@@ -4,7 +4,7 @@ const path = require("path");
 
 const CONTRACT_NAME = "Certificates";
 const BUILD_PATH = path.resolve(__dirname, "../build/contracts", `${CONTRACT_NAME}.json`);
-const OUTPUT_PATH = path.resolve(__dirname, "../../shared/contract.json"); // 🔁 новый путь
+const OUTPUT_PATH = path.resolve(__dirname, "../../frontend/src/shared/contract.json");
 
 function exportContract() {
   if (!fs.existsSync(BUILD_PATH)) {

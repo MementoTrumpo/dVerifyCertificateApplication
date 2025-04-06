@@ -1,8 +1,8 @@
 import { ethers } from "ethers";
 import { getBlockchain } from "./BlockchainService";
 import contractABI from "../Certificates.json"; // путь к ABI контракта
-import { API_URL } from "../../../shared/config";
-import contract from "../../../shared/contract.json";
+import { API_URL } from "../shared/config";
+import contract from "../shared/contract.json";
 
 export const CONTRACT_ABI = contract.abi;// ABI контракта
 export const CONTRACT_ADDRESS = contract.address;// Адрес контракта
