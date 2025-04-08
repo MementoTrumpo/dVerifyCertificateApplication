@@ -5,15 +5,29 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="832743a8-39d1-4004-a6fe-627052cc0c01" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/../backend/CertificateManagementBackend/CertificateManagement.Core/Models/User.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../backend/CertificateManagementBackend/CertificateManagement.Core/Models/User.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/hooks/useAuth.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../backend/CertificateManagementBackend/CertificateManagementAPI/CertificateManagement.WebAPI/Contexts/CertificateDbContext.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../backend/CertificateManagementBackend/CertificateManagementAPI/CertificateManagement.WebAPI/Contexts/CertificateDbContext.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../backend/CertificateManagementBackend/CertificateManagementAPI/CertificateManagement.WebAPI/Migrations/20250402193524_InitialCreate.Designer.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../backend/CertificateManagementBackend/CertificateManagementAPI/CertificateManagement.WebAPI/Migrations/20250402193524_InitialCreate.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../backend/CertificateManagementBackend/CertificateManagementAPI/CertificateManagement.WebAPI/Migrations/CertificateDbContextModelSnapshot.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../backend/CertificateManagementBackend/CertificateManagementAPI/CertificateManagement.WebAPI/Program.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../backend/CertificateManagementBackend/CertificateManagementAPI/CertificateManagement.WebAPI/Program.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../backend/CertificateManagementBackend/CertificateManagementAPI/CertificateManagement.WebAPI/appsettings.json" beforeDir="false" afterPath="$PROJECT_DIR$/../backend/CertificateManagementBackend/CertificateManagementAPI/CertificateManagement.WebAPI/appsettings.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/api/CertificateAPI.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/api/CertificateAPI.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/UploadCertificate.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/UploadCertificate.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/ConnectWallet.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ConnectWallet.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/shared/config.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/shared/config.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="TypeScript File" />
+      </list>
+    </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
@@ -27,20 +41,20 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "git-widget-placeholder": "master",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "ts.external.directory.path": "D:\\MAI education\\DApplication\\dVerifyCertificateApplication\\frontend\\node_modules\\typescript\\lib",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;ts.external.directory.path&quot;: &quot;D:\\MAI education\\DApplication\\dVerifyCertificateApplication\\frontend\\node_modules\\typescript\\lib&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
@@ -57,11 +71,24 @@
       <option name="presentableId" value="Default" />
       <updated>1742415574106</updated>
       <workItem from="1742415576121" duration="1167000" />
-      <workItem from="1743951863802" duration="2927000" />
+      <workItem from="1743951863802" duration="9857000" />
+      <workItem from="1744059395844" duration="1453000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/src/components/ConnectWallet.tsx</url>
+          <line>28</line>
+          <properties lambdaOrdinal="-1" />
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>

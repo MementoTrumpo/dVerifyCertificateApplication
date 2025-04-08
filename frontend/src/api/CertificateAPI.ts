@@ -1,7 +1,7 @@
 import { ethers } from "ethers";
 import { getBlockchain } from "./BlockchainService";
 import contractABI from "../Certificates.json"; // путь к ABI контракта
-import { API_URL } from "../shared/config";
+import { API_ENDPOINTS } from "../shared/config";
 import contract from "../shared/contract.json";
 
 export const CONTRACT_ABI = contract.abi;// ABI контракта
@@ -16,7 +16,7 @@ export interface Metadata {
 export async function getCertificate(certId: number): Promise<any> {
   try {
     // Сначала пытаемся получить данные из БД
-    const response = await fetch(`${API_URL}/${certId}`);
+    const response = await fetch(`${API_ENDPOINTS.CERTIFICATES.getById(certId)}`);
     if (response.ok) {
       return await response.json();
     }
@@ -62,7 +62,7 @@ export async function issueCertificate(ipfsHash: string, metadata: Metadata): Pr
     const certificateId = generateCertificateId();
 
     // Отправляем данные в API C#
-    const response = await fetch(API_URL, {
+    const response = await fetch(API_ENDPOINTS.CERTIFICATES.BASE, {
         method: "POST",
         headers: {
           "Content-Type": "application/json"

@@ -11,16 +11,19 @@ namespace CertificateManagement.WebAPI
         public static async Task Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
-
+            var allowedOrigins = builder.Configuration
+                .GetSection("Cors:AllowedOrigins")
+                .Get<string[]>();
             // Добавляем CORS
             builder.Services.AddCors(options =>
             {
                 options.AddPolicy("AllowFrontend",
                     policy =>
                     {
-                        policy.WithOrigins("http://localhost:3000") // Укажи адрес фронтенда
+                        policy.WithOrigins(allowedOrigins) // Укажи адрес фронтенда
                               .AllowAnyMethod()
-                              .AllowAnyHeader();
+                              .AllowAnyHeader()
+                              .AllowCredentials();
                     });
             });
             
@@ -63,8 +66,9 @@ namespace CertificateManagement.WebAPI
             }
 
             app.UseRouting();
-            app.UseCors("AllowFrontend"); // Включаем CORS
+            app.UseCors(); // Включаем CORS
             app.UseHttpsRedirection();
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.MapControllers();
