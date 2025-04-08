@@ -13,8 +13,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace CertificateManagement.WebAPI.Migrations
 {
     [DbContext(typeof(CertificateDbContext))]
-    [Migration("20250402193524_InitialCreate")]
-    partial class InitialCreate
+    [Migration("20250407204542_InitSchema")]
+    partial class InitSchema
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -81,6 +81,10 @@ namespace CertificateManagement.WebAPI.Migrations
                         .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("Email")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("Role")
                         .IsRequired()
                         .HasColumnType("text");
 
