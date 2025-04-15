@@ -7,10 +7,11 @@ using System.Text;
 using CertificateManagement.WebAPI.Contexts;
 using CertificateManagement.Core.Models;
 using CertificateManagement.WebAPI.Dtos;
+using Microsoft.EntityFrameworkCore;
 
 namespace CertificateManagement.WebAPI.Controllers;
 
-[Route("api/[controller]")]
+[Route("api/auth")]
 [ApiController]
 public class AuthController : ControllerBase
 {
@@ -26,21 +27,51 @@ public class AuthController : ControllerBase
     [HttpPost("login")]
     public async Task<IActionResult> Login([FromBody] LoginRequest request)
     {
-        var signer = new EthereumMessageSigner();
-        var recoveredAddress = signer.EncodeUTF8AndEcRecover(request.Message, request.Signature);
-
-        if (!string.Equals(recoveredAddress, request.Address, StringComparison.OrdinalIgnoreCase))
-            return Unauthorized("Подпись невалидна");
-
-        var user = _context.Users.FirstOrDefault(u =>
+        var user = await _context.Users.FirstOrDefaultAsync(u =>
             u.WalletAddress.ToLower() == request.Address.ToLower());
 
         if (user == null)
             return NotFound("Пользователь не зарегистрирован");
 
+        var message = $"Authentication nonce: {user.Nonce}";
+        var signer = new EthereumMessageSigner();
+        var recoveredAddress = signer.EncodeUTF8AndEcRecover(message, request.Signature);
+
+        if (!string.Equals(recoveredAddress, request.Address, StringComparison.OrdinalIgnoreCase))
+            return Unauthorized("Подпись невалидна");
+
+        // обновляем nonce, чтобы нельзя было повторно использовать подпись
+        user.Nonce = Guid.NewGuid().ToString();
+        await _context.SaveChangesAsync();
+
         var token = GenerateJwt(user);
         return Ok(new { token, role = user.Role.ToString() });
     }
+
+    
+    [HttpGet("nonce")]
+    public async Task<IActionResult> GetNonce([FromQuery] string address)
+    {
+        var lower = address.ToLower();
+
+        var user = await _context.Users.FirstOrDefaultAsync(u => u.WalletAddress.ToLower() == lower);
+
+        if (user == null)
+        {
+            user = new User
+            {
+                Id = Guid.NewGuid(),
+                WalletAddress = lower,
+                Role = UserRole.Verifier,
+                Nonce = Guid.NewGuid().ToString()
+            };
+            _context.Users.Add(user);
+            await _context.SaveChangesAsync();
+        }
+
+        return Ok(new { nonce = user.Nonce });
+    }
+
 
     private string GenerateJwt(User user)
     {
