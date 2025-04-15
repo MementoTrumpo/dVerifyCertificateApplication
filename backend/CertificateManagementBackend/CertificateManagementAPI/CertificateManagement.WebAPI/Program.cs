@@ -1,5 +1,6 @@
 using System.Text;
 using CertificateManagement.WebAPI.Contexts;
+using CertificateManagement.WebAPI.Seeding;
 using Ipfs.Http;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
@@ -66,15 +67,23 @@ namespace CertificateManagement.WebAPI
             }
 
             app.UseRouting();
-            app.UseCors(); // Включаем CORS
+            app.Use(async (context, next) =>
+            {
+                context.Request.Path = context.Request.Path.Value?.ToLower();
+                await next();
+            });
+            app.UseCors("AllowFrontend"); // Включаем CORS
             app.UseHttpsRedirection();
             app.UseAuthentication();
             app.UseAuthorization();
 
             app.MapControllers();
+            
+            await app.UseSeedAdminAsync();// Создает админа
 
             app.Run();
 
+        
 
         }
     }
