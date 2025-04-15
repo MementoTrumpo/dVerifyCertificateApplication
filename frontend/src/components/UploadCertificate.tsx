@@ -1,94 +1,74 @@
-import { useState } from "react";
-import { issueCertificate } from "../api/CertificateAPI";
-import { toast } from "react-toastify";
+import React, { useState } from "react";
+import { Signer } from "ethers";
 import { create } from "ipfs-http-client";
+import { issueCertificate } from "../api/CertificateAPI";
+import { useWallet } from "../context/WalletContext";
 
-const ipfs = create({
-  host: "localhost",
-  port: 5001,
-  protocol: "http"
-});
+
+const ipfs = create({ url: "http://localhost:5001" }); // Убедись, что IPFS CLI работает
 
 export default function UploadCertificate() {
-  const [ipfsHash, setIpfsHash] = useState("");
-  const [fileLoading, setFileLoading] = useState(false);
+  const { signer } = useWallet(); // 🔑 получаем глобальный signer
+  const [file, setFile] = useState<File | null>(null);
+  const [isUploading, setIsUploading] = useState(false);
 
-  const handleFileUpload = async (event: React.ChangeEvent<HTMLInputElement>) => {
-    const file = event.target.files?.[0];
-    if (!file) return;
-
-    console.log("📁 Файл выбран:", file.name);
-
-    setFileLoading(true);
-    try {
-      const result = await ipfs.add(file);
-      console.log("✅ Файл загружен в IPFS:", result);
-      console.log("✅ CID:", result.path);
-      setIpfsHash(result.path);
-      toast.success("Файл загружен в IPFS");
-    } catch (error) {
-      console.error("❌ Ошибка загрузки в IPFS:", error);
-      toast.error("Ошибка загрузки в IPFS");
-    } finally {
-      setFileLoading(false);
-    }
+  const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const selectedFile = event.target.files?.[0] || null;
+    setFile(selectedFile);
   };
 
+  const handleUpload = async () => {
+    if (!signer || !file) return;
 
-  const uploadCertificate = async () => {
-    if (!ipfsHash) {
-      alert("Сначала загрузите файл для получения IPFS-хэша.");
+    const allowedTypes = ["application/pdf", "image/png", "image/jpeg"];
+    if (!allowedTypes.includes(file.type)) {
+      alert("❌ Поддерживаются только файлы PDF, PNG и JPEG.");
       return;
     }
 
-    const metadata = {
-      course: "Blockchain 101",
-      issuer: "Decentralized University"
-    };
-
     try {
+      setIsUploading(true);
+      console.log("📄 Выбран файл:", file.name, file.type);
+
+      const added = await ipfs.add(file);
+      const ipfsHash = added.cid.toString();
+      console.log("🌀 Загружено в IPFS, CID:", ipfsHash);
+
+      const metadata = {
+        filename: file.name,
+        issuer: "Decentralized University",
+      };
+
       await issueCertificate(ipfsHash, metadata);
-      toast.success("Сертификат успешно загружен в блокчейн и БД!");
+      alert("✅ Сертификат успешно загружен!");
+      setFile(null); // сбросить состояние файла
     } catch (error) {
-      console.error("Ошибка загрузки сертификата:", error);
-      toast.error("Ошибка загрузки сертификата");
+      console.error("❌ Ошибка загрузки сертификата:", error);
+      alert("Ошибка загрузки сертификата. Проверьте IPFS и MetaMask.");
+    } finally {
+      setIsUploading(false);
     }
   };
 
   return (
-    <div className="p-4 bg-white rounded shadow-md max-w-xl w-full">
-      <h2 className="text-xl font-bold mb-4">Загрузить сертификат</h2>
-
-      <input
-        type="file"
-        onChange={handleFileUpload}
-        className="mb-3"
-        accept=".pdf,.jpg,.jpeg,.png,.json"
-      />
-
-      {fileLoading && <p>⏳ Загрузка в IPFS...</p>}
-
-      {ipfsHash && (
-        <div className="mb-4 text-sm">
-          <p>📦 IPFS-хэш: <code>{ipfsHash}</code></p>
-          <a
-            href={`https://ipfs.io/ipfs/${ipfsHash}`}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-blue-600 underline"
-          >
-            Открыть в IPFS
-          </a>
-        </div>
-      )}
-
-      <button
-        onClick={uploadCertificate}
-        className="bg-green-600 text-white py-2 px-4 rounded hover:bg-green-700"
-        disabled={!ipfsHash || fileLoading}
-      >
-        📤 Отправить сертификат
-      </button>
-    </div>
+      <div className="mt-8 w-full max-w-xl mx-auto bg-white p-6 rounded shadow">
+        <h2 className="text-2xl font-semibold mb-4">📤 Загрузить сертификат</h2>
+        <input
+            type="file"
+            onChange={handleFileChange}
+            className="block w-full border p-2 rounded mb-4"
+        />
+        <button
+            onClick={handleUpload}
+            disabled={!file || !signer || isUploading}
+            className={`w-full px-4 py-2 rounded text-white transition ${
+                isUploading
+                    ? "bg-gray-400 cursor-not-allowed"
+                    : "bg-blue-600 hover:bg-blue-700"
+            }`}
+        >
+          {isUploading ? "Загрузка..." : "Отправить сертификат"}
+        </button>
+      </div>
   );
 }
