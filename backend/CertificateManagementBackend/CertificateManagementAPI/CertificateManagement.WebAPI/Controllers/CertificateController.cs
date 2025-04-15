@@ -22,7 +22,7 @@ public class CertificatesController : ControllerBase
     [HttpPost]
     public async Task<IActionResult> UploadCertificate([FromBody] CertificateRequest request)
     {
-        if (request == null || request.CertificateId == 0 || string.IsNullOrEmpty(request.BlockchainHash))
+        if (request is null || request.CertificateId == 0 || string.IsNullOrEmpty(request.BlockchainHash))
         {
             return BadRequest("Некорректные данные");
         }
