@@ -1,47 +1,43 @@
-import React, { createContext, useContext, useState, useEffect } from "react";
-import { ethers } from "ethers";
 
-interface WalletContextProps {
+import { createContext, useContext, useState, ReactNode, useEffect } from "react";
+import { Signer, BrowserProvider } from "ethers";
+
+interface WalletContextType {
     account: string | null;
-    signer: ethers.Signer | null;
-    provider: ethers.BrowserProvider | null;
-    connectWallet: () => Promise<void>;
+    signer: Signer | null;
+    provider: BrowserProvider | null;
+    setSigner: (signer: Signer | null) => void;
+    setProvider: (provider: BrowserProvider | null) => void;
+    setAccount: (account: string | null) => void;
 }
 
-const WalletContext = createContext<WalletContextProps>({
-    account: null,
-    signer: null,
-    provider: null,
-    connectWallet: async () => {},
-});
+const WalletContext = createContext<WalletContextType | undefined>(undefined);
 
-export const WalletProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+export const useWallet = () => {
+    const context = useContext(WalletContext);
+    if (!context) {
+        throw new Error("useWallet must be used within a WalletProvider");
+    }
+    return context;
+};
+
+export const WalletProvider = ({ children }: { children: ReactNode }) => {
+    const [signer, setSigner] = useState<Signer | null>(null);
+    const [provider, setProvider] = useState<BrowserProvider | null>(null);
     const [account, setAccount] = useState<string | null>(null);
-    const [signer, setSigner] = useState<ethers.Signer | null>(null);
-    const [provider, setProvider] = useState<ethers.BrowserProvider | null>(null);
-
-    const connectWallet = async () => {
-        if (!window.ethereum) return alert("Установите MetaMask!");
-
-        const browserProvider = new ethers.BrowserProvider(window.ethereum);
-        await browserProvider.send("eth_requestAccounts", []);
-        const signer = await browserProvider.getSigner();
-        const address = await signer.getAddress();
-
-        setProvider(browserProvider);
-        setSigner(signer);
-        setAccount(address);
-    };
 
     useEffect(() => {
-        connectWallet().catch(console.error);
+        if (window.ethereum) {
+            (window.ethereum as any).on("accountsChanged", () => {
+                localStorage.removeItem("role");
+                window.location.reload();
+            });
+        }
     }, []);
 
     return (
-        <WalletContext.Provider value={{ account, signer, provider, connectWallet }}>
+        <WalletContext.Provider value={{ signer, provider, account, setSigner, setProvider, setAccount }}>
             {children}
         </WalletContext.Provider>
     );
 };
-
-export const useWallet = () => useContext(WalletContext);

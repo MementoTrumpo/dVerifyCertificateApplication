@@ -4,10 +4,16 @@ import UploadCertificate from "./components/UploadCertificate";
 import CheckCertificate from "./components/CheckCertificate";
 import RoleManagement from "./components/RoleManagement";
 import { WalletProvider, useWallet } from "./context/WalletContext";
+import { useEffect, useState } from "react";
 
 function AppContent() {
     const { account, signer, provider } = useWallet();
-    const role = localStorage.getItem("role");
+    const [role, setRole] = useState<string | null>(localStorage.getItem("role"));
+
+    useEffect(() => {
+        const stored = localStorage.getItem("role");
+        setRole(stored);
+    }, [account]);
 
     return (
         <div className="p-6 min-h-screen flex flex-col items-center bg-gray-100">

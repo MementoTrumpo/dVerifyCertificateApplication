@@ -5,30 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="832743a8-39d1-4004-a6fe-627052cc0c01" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/../backend/CertificateManagementBackend/CertificateManagementAPI/CertificateManagement.WebAPI/Controllers/AdminController.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../backend/CertificateManagementBackend/CertificateManagementAPI/CertificateManagement.WebAPI/Dtos/SetUpUserRoleRequest.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/postcss.config.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/LoginPage.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/RoleManagement.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/context/WalletContext.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/tailwind.config.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../backend/CertificateManagementBackend/CertificateManagement.Core/Models/User.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../backend/CertificateManagementBackend/CertificateManagement.Core/Models/User.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../backend/CertificateManagementBackend/CertificateManagementAPI/CertificateManagement.WebAPI/Controllers/AuthController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../backend/CertificateManagementBackend/CertificateManagementAPI/CertificateManagement.WebAPI/Controllers/AuthController.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../backend/CertificateManagementBackend/CertificateManagementAPI/CertificateManagement.WebAPI/Controllers/CertificateController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../backend/CertificateManagementBackend/CertificateManagementAPI/CertificateManagement.WebAPI/Controllers/CertificateController.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../backend/CertificateManagementBackend/CertificateManagementAPI/CertificateManagement.WebAPI/Dtos/LoginRequest.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../backend/CertificateManagementBackend/CertificateManagementAPI/CertificateManagement.WebAPI/Dtos/LoginRequest.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../backend/CertificateManagementBackend/CertificateManagementAPI/CertificateManagement.WebAPI/Migrations/CertificateDbContextModelSnapshot.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../backend/CertificateManagementBackend/CertificateManagementAPI/CertificateManagement.WebAPI/Migrations/CertificateDbContextModelSnapshot.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../backend/CertificateManagementBackend/CertificateManagementAPI/CertificateManagement.WebAPI/Program.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../backend/CertificateManagementBackend/CertificateManagementAPI/CertificateManagement.WebAPI/Program.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../backend/CertificateManagementBackend/CertificateManagementAPI/CertificateManagement.WebAPI/appsettings.json" beforeDir="false" afterPath="$PROJECT_DIR$/../backend/CertificateManagementBackend/CertificateManagementAPI/CertificateManagement.WebAPI/appsettings.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/App.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/api/CertificateAPI.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/api/CertificateAPI.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/CheckCertificate.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/CheckCertificate.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/ConnectWallet.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ConnectWallet.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/UploadCertificate.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/UploadCertificate.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/index.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/index.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/shared/config.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/shared/config.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/context/WalletContext.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/context/WalletContext.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -88,7 +68,8 @@
       <workItem from="1742415576121" duration="1167000" />
       <workItem from="1743951863802" duration="9857000" />
       <workItem from="1744059395844" duration="19778000" />
-      <workItem from="1744564475685" duration="9395000" />
+      <workItem from="1744564475685" duration="12610000" />
+      <workItem from="1744750894638" duration="1876000" />
     </task>
     <servers />
   </component>
