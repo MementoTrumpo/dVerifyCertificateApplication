@@ -34,18 +34,4 @@ public class AdminController : ControllerBase
 
         return Ok("Роль назначена!");
     }
-
-    [HttpGet]
-    [Route("users")]
-    public async Task<IActionResult> GetUsers(CancellationToken cancellationToken)
-    {
-        var users = await _context.Users
-            .Select(u => new
-            {
-                u.WalletAddress,
-                Role = u.Role.ToString()
-            })
-            .ToListAsync(cancellationToken);
-        return Ok(users);
-    }
 }

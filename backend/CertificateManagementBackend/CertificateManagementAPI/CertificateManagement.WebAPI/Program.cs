@@ -1,4 +1,5 @@
 using System.Text;
+using System.Text.Json.Serialization;
 using CertificateManagement.WebAPI.Contexts;
 using CertificateManagement.WebAPI.Seeding;
 using Ipfs.Http;
@@ -49,7 +50,11 @@ namespace CertificateManagement.WebAPI
 
 
             // Добавляем сервисы
-            builder.Services.AddControllers();
+            builder.Services.AddControllers()
+                .AddJsonOptions(options =>
+                {
+                    options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
+                });
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
 

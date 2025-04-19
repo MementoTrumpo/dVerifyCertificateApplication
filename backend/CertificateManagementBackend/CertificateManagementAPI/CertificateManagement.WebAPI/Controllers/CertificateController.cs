@@ -1,11 +1,13 @@
-﻿using CertificateManagement.Core.Models;
+﻿using System.Security.Claims;
+using System.Text.Json;
+using CertificateManagement.Core.Models;
 using CertificateManagement.WebAPI.Contexts;
 using CertificateManagement.WebAPI.Dtos;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Text.Json;
-using System.Threading.Tasks;
+
+namespace CertificateManagement.WebAPI.Controllers;
 
 [Route("api/certificates")]
 [ApiController]
@@ -55,10 +57,10 @@ public class CertificatesController : ControllerBase
 
 
     [HttpGet("{certificateId}")]
-    public async Task<IActionResult> GetCertificateByBlockchainId(uint certificateId)
+    public async Task<IActionResult> GetCertificateByBlockchainId(uint certificateId, CancellationToken cancellationToken)
     {
         var certificate = await _context.Certificates
-            .FirstOrDefaultAsync(c => c.CertificateId == certificateId);
+            .FirstOrDefaultAsync(c => c.CertificateId == certificateId, cancellationToken);
 
         if (certificate == null)
         {
@@ -67,4 +69,39 @@ public class CertificatesController : ControllerBase
 
         return Ok(certificate);
     }
+
+    [HttpPut("revoke/{certificateId}")]
+    public async Task<IActionResult> RevokeRectificate([FromBody] uint certificateId, CancellationToken cancellationToken)
+    {
+        var certificate = await _context.Certificates.FirstOrDefaultAsync(c => c.CertificateId == certificateId, cancellationToken);
+        if (certificate is null)
+        {
+            return NotFound("Сертификат не найден");
+        }
+
+        if (certificate.IsRevoked)
+        {
+            return BadRequest("Сертификат уже отозван");
+        }
+
+        certificate.IsRevoked = true;
+        await _context.SaveChangesAsync();
+
+        return Ok("Сертификат успешно отозван");
+    }
+    
+    //
+    // [HttpGet("issued")]
+    // [Authorize(Roles = "Issuer")]
+    // public async Task<IActionResult> GetIssuedByMe()
+    // {
+    //     var address = User.FindFirstValue(ClaimTypes.NameIdentifier)?.ToLower();
+    //
+    //     var issued = await _context.Certificates
+    //         .Where(c => c.ToLower() == address)
+    //         .ToListAsync();
+    //
+    //     return Ok(issued);
+    // }
+
 }

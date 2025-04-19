@@ -33,9 +33,12 @@ namespace CertificateManagement.Core.Models
         [Required]
         public JsonDocument Metadata { get; set; }
 
-        public DateTime IssueDate { get; set; } // Дата выпуска в блокчейне
+        public DateTime IssueDate { get; set; } // Дата и время выпуска в блокчейне
 
-        public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
+        public DateTime CreatedAt { get; set; } = DateTime.UtcNow; // Дата и время создания сертификата
+        
+        [Required]
+        public bool IsRevoked { get; set; } = false; // Флаг того, что сертификат отозван
     }
 
 }
