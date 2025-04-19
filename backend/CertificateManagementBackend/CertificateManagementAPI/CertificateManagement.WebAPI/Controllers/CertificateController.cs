@@ -69,9 +69,10 @@ public class CertificatesController : ControllerBase
 
         return Ok(certificate);
     }
-
-    [HttpPut("revoke/{certificateId}")]
-    public async Task<IActionResult> RevokeRectificate([FromBody] uint certificateId, CancellationToken cancellationToken)
+    
+    [Authorize(Roles = "Issuer")]
+    [HttpPut("{certificateId}/revoke")]
+    public async Task<IActionResult> RevokeCertificate(uint certificateId, CancellationToken cancellationToken)
     {
         var certificate = await _context.Certificates.FirstOrDefaultAsync(c => c.CertificateId == certificateId, cancellationToken);
         if (certificate is null)
@@ -85,23 +86,26 @@ public class CertificatesController : ControllerBase
         }
 
         certificate.IsRevoked = true;
-        await _context.SaveChangesAsync();
-
+        await _context.SaveChangesAsync(cancellationToken);
         return Ok("Сертификат успешно отозван");
     }
     
-    //
-    // [HttpGet("issued")]
-    // [Authorize(Roles = "Issuer")]
-    // public async Task<IActionResult> GetIssuedByMe()
-    // {
-    //     var address = User.FindFirstValue(ClaimTypes.NameIdentifier)?.ToLower();
-    //
-    //     var issued = await _context.Certificates
-    //         .Where(c => c.ToLower() == address)
-    //         .ToListAsync();
-    //
-    //     return Ok(issued);
-    // }
+    [HttpGet("issued")]
+    [Authorize(Roles = "Issuer")]
+    public async Task<IActionResult> GetIssuedByMe(CancellationToken cancellationToken)
+    {
+        var issuerAddress = User.FindFirstValue(ClaimTypes.NameIdentifier)?.ToLower();
+
+        if (string.IsNullOrWhiteSpace(issuerAddress))
+            return Unauthorized("Не удалось определить адрес пользователя");
+
+        var issuedCerts = await _context.Certificates
+            .Where(c => c.Issuer.Equals(issuerAddress, StringComparison.CurrentCultureIgnoreCase))
+            .OrderByDescending(c => c.IssueDate)
+            .ToListAsync(cancellationToken);
+
+        return Ok(issuedCerts);
+    }
+
 
 }
