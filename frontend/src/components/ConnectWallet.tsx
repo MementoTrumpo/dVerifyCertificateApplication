@@ -1,8 +1,7 @@
-
 import { useState } from "react";
-import { ethers } from "ethers";
 import { API_ENDPOINTS } from "../shared/config";
 import { useWallet } from "../context/WalletContext";
+import { ethers } from "ethers";
 
 export default function ConnectWallet() {
     const { account, setAccount, setSigner, setProvider } = useWallet();
@@ -33,7 +32,7 @@ export default function ConnectWallet() {
             const loginRes = await fetch(API_ENDPOINTS.AUTH.LOGIN, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ address, signature })
+                body: JSON.stringify({ address, signature }),
             });
 
             const { token, role } = await loginRes.json();
@@ -47,11 +46,20 @@ export default function ConnectWallet() {
     };
 
     return (
-        <div className="flex flex-col items-center space-y-2">
-            <button onClick={connectWallet} className="p-2 bg-blue-500 text-white rounded">
-                {account ? `🔌 Подключено: ${account.slice(0, 6)}...` : "Подключить MetaMask"}
+        <div className="text-center my-6">
+            <button
+                onClick={connectWallet}
+                className="px-4 py-2 bg-indigo-600 text-white rounded shadow hover:bg-indigo-700 transition"
+            >
+                {account ? `🔌 ${account.slice(0, 6)}...` : "Подключить MetaMask"}
             </button>
-            {role && <div className="text-sm text-gray-700">🔐 Ваша роль: <strong>{role}</strong></div>}
+            {role && (
+                <p className="mt-3 text-gray-600">
+          <span className="inline-block px-3 py-1 bg-gray-200 rounded-full text-sm">
+            Роль: {role}
+          </span>
+                </p>
+            )}
         </div>
     );
 }

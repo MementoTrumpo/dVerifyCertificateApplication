@@ -1,14 +1,33 @@
-import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route, Link, useLocation } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { WalletProvider, useWallet } from "./context/WalletContext";
+
 import ConnectWallet from "./components/ConnectWallet";
 import UploadCertificate from "./components/UploadCertificate";
 import CheckCertificate from "./components/CheckCertificate";
 import RoleManagement from "./components/RoleManagement";
-import { WalletProvider, useWallet } from "./context/WalletContext";
-import { useEffect, useState } from "react";
+import HomePage from "./components/HomePage";
+
+import { AnimatePresence, motion } from "framer-motion";
+
+function AnimatedPage({ children }: { children: React.ReactNode }) {
+    return (
+        <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -20 }}
+            transition={{ duration: 0.3 }}
+            className="w-full"
+        >
+            {children}
+        </motion.div>
+    );
+}
 
 function AppContent() {
-    const { account, signer, provider } = useWallet();
+    const { account, provider } = useWallet();
     const [role, setRole] = useState<string | null>(localStorage.getItem("role"));
+    const location = useLocation();
 
     useEffect(() => {
         const stored = localStorage.getItem("role");
@@ -16,22 +35,26 @@ function AppContent() {
     }, [account]);
 
     return (
-        <div className="p-6 min-h-screen flex flex-col items-center bg-gray-100">
+        <div className="min-h-screen flex flex-col items-center bg-gray-100 p-6">
             <ConnectWallet />
+
             {account && (
                 <>
-                    <nav className="flex space-x-4 mt-6 mb-8">
-                        <Link to="/">Главная</Link>
-                        <Link to="/upload">Загрузить сертификат</Link>
-                        <Link to="/verify">Проверить сертификат</Link>
-                        {role === "Admin" && <Link to="/roles">Управление ролями</Link>}
+                    <nav className="flex space-x-6 mt-6 mb-10 text-lg font-medium">
+                        <Link to="/" className="hover:underline">Главная</Link>
+                        <Link to="/upload" className="hover:underline">Загрузить сертификат</Link>
+                        <Link to="/verify" className="hover:underline">Проверить сертификат</Link>
+                        {role === "Admin" && <Link to="/roles" className="hover:underline">Управление ролями</Link>}
                     </nav>
-                    <Routes>
-                        <Route path="/" element={<div>Добро пожаловать в систему управления сертификатами!</div>} />
-                        <Route path="/upload" element={<UploadCertificate/>} />
-                        <Route path="/verify" element={<CheckCertificate provider={provider} />} />
-                        <Route path="/roles" element={<RoleManagement />} />
-                    </Routes>
+
+                    <AnimatePresence mode="wait">
+                        <Routes location={location} key={location.pathname}>
+                            <Route path="/" element={<AnimatedPage><HomePage /></AnimatedPage>} />
+                            <Route path="/upload" element={<AnimatedPage><UploadCertificate /></AnimatedPage>} />
+                            <Route path="/verify" element={<AnimatedPage><CheckCertificate provider={provider} /></AnimatedPage>} />
+                            <Route path="/roles" element={<AnimatedPage><RoleManagement /></AnimatedPage>} />
+                        </Routes>
+                    </AnimatePresence>
                 </>
             )}
         </div>

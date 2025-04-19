@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { Signer } from "ethers";
 import { create } from "ipfs-http-client";
 import { issueCertificate } from "../api/CertificateAPI";
 import { useWallet } from "../context/WalletContext";
@@ -11,6 +10,11 @@ export default function UploadCertificate() {
   const { signer } = useWallet(); // 🔑 получаем глобальный signer
   const [file, setFile] = useState<File | null>(null);
   const [isUploading, setIsUploading] = useState(false);
+
+  const role = localStorage.getItem("role");
+  if (role !== "Issuer") {
+    return <p className="text-red-600 text-center mt-10">Доступ разрешён только Issuer-ам</p>;
+  }
 
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const selectedFile = event.target.files?.[0] || null;

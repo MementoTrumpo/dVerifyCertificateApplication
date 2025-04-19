@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import { BrowserProvider } from "ethers";
 import { getCertificate } from "../api/CertificateAPI";
+import { BrowserProvider } from "ethers";
 
 interface CheckCertificateProps {
     provider: BrowserProvider | null;
@@ -8,11 +8,10 @@ interface CheckCertificateProps {
 
 export default function CheckCertificate({ provider }: CheckCertificateProps) {
     const [certId, setCertId] = useState("");
-    const [certificate, setCertificate] = useState<any>(null);
+    const [certificate, setCertificate] = useState<any | null>(null);
 
     const handleCheck = async () => {
         if (!certId) return;
-
         try {
             const cert = await getCertificate(Number(certId));
             setCertificate(cert);
@@ -23,27 +22,29 @@ export default function CheckCertificate({ provider }: CheckCertificateProps) {
     };
 
     return (
-        <div className="mt-8">
-            <h2 className="text-2xl font-semibold mb-2">Проверить сертификат</h2>
+        <div className="max-w-xl mx-auto mt-10 bg-white p-6 rounded shadow">
+            <h2 className="text-xl font-bold mb-4">🔍 Проверка сертификата</h2>
             <input
                 type="text"
-                placeholder="Введите ID"
+                placeholder="Введите ID сертификата"
                 value={certId}
                 onChange={(e) => setCertId(e.target.value)}
-                className="border px-3 py-2 rounded mr-2"
+                className="w-full border rounded p-2 mb-4"
             />
             <button
                 onClick={handleCheck}
-                className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded"
+                className="px-4 py-2 bg-green-600 hover:bg-green-700 text-white rounded"
             >
-                🔍 Проверить
+                Проверить
             </button>
 
             {certificate && (
-                <div className="mt-4 bg-white p-4 rounded shadow">
-                    <p><strong>IPFS Hash:</strong> {certificate.ipfsHash}</p>
-                    <p><strong>Выдан:</strong> {certificate.issuedTo}</p>
-                    <p><strong>Дата:</strong> {new Date(certificate.issueDate).toLocaleString()}</p>
+                <div className="mt-4 text-left text-sm">
+                    <p><strong>ID:</strong> {certificate.certificateId}</p>
+                    <p><strong>Владелец:</strong> {certificate.issuedTo}</p>
+                    <p><strong>Выдано:</strong> {certificate.issuer}</p>
+                    <p><strong>Дата:</strong> {new Date(certificate.issueDate).toLocaleDateString()}</p>
+                    <p><strong>IPFS:</strong> {certificate.ipfsHash}</p>
                 </div>
             )}
         </div>

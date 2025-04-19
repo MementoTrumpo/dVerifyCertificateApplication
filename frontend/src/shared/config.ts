@@ -10,7 +10,7 @@ export const API_ENDPOINTS = {
         getById: (id: number | string) => `${API_BASE_URL}/api/certificates/${id}`,
     },
     USERS: {
-        ALL: `${API_BASE_URL}/api/admin/users`,
+        ALL: `${API_BASE_URL}/api/users`,
         SET_ROLE: `${API_BASE_URL}/api/admin/setRole`, // 👈 фикс роутинга по REST
     }
 };

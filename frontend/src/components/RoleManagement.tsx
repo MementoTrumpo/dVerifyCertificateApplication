@@ -11,7 +11,7 @@ export default function RoleManagement() {
     const [roles] = useState(["Admin", "Issuer", "Verifier"]);
     const [updatedRoles, setUpdatedRoles] = useState<Record<string, string>>({});
 
-    const token = localStorage.getItem("jwt");
+    const token = localStorage.getItem("token");
     const currentRole = localStorage.getItem("role");
 
     useEffect(() => {
@@ -34,6 +34,10 @@ export default function RoleManagement() {
     const handleSubmit = async (wallet: string) => {
         const newRole = updatedRoles[wallet];
         if (!newRole) return;
+        console.log("Перед отправкой:", {
+            WalletAddress: wallet,
+            NewRole: newRole
+        });
 
         const res = await fetch(API_ENDPOINTS.USERS.SET_ROLE, {
             method: "POST",
@@ -41,7 +45,10 @@ export default function RoleManagement() {
                 "Content-Type": "application/json",
                 Authorization: `Bearer ${token}`
             },
-            body: JSON.stringify({ walletAddress: wallet, newRole })
+            body: JSON.stringify({
+                WalletAddress: wallet,
+                NewRole: newRole
+            })
         });
 
         if (res.ok) {
@@ -52,9 +59,12 @@ export default function RoleManagement() {
                 )
             );
         } else {
-            alert("❌ Ошибка назначения роли");
+            const error = await res.text();
+            console.error("❌ Ошибка назначения роли:", error);
+            alert("❌ Ошибка назначения роли:\n" + error);
         }
     };
+
 
     if (currentRole !== "Admin") {
         return <p className="text-red-600 text-center mt-10">Доступ разрешён только администраторам</p>;
