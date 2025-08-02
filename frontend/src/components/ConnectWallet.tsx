@@ -53,7 +53,7 @@ export default function ConnectWallet() {
             >
                 {account ? `🔌 ${account.slice(0, 6)}...` : "Подключить MetaMask"}
             </button>
-            {role && (
+            {account && role && (
                 <p className="mt-3 text-gray-600">
           <span className="inline-block px-3 py-1 bg-gray-200 rounded-full text-sm">
             Роль: {role}

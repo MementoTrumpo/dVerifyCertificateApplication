@@ -5,23 +5,26 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="832743a8-39d1-4004-a6fe-627052cc0c01" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/../backend/CertificateManagementBackend/CertificateManagementAPI/CertificateManagement.WebAPI/Controllers/UserController.cs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/AppNavbar.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/HomePage.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/IssueCertificate.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../backend/CertificateManagementBackend/CertificateManagementAPI/CertificateManagement.WebAPI/Controllers/AdminController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../backend/CertificateManagementBackend/CertificateManagementAPI/CertificateManagement.WebAPI/Controllers/AdminController.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/CheckPage.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/Navbar.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/UserCertificatesPage.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/VerifierCertificatesPage.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/../.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../backend/CertificateManagementBackend/CertificateManagementAPI/CertificateManagement.WebAPI/Controllers/CertificateController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../backend/CertificateManagementBackend/CertificateManagementAPI/CertificateManagement.WebAPI/Controllers/CertificateController.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../backend/CertificateManagementBackend/CertificateManagementAPI/CertificateManagement.WebAPI/Program.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../backend/CertificateManagementBackend/CertificateManagementAPI/CertificateManagement.WebAPI/Program.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../contracts/contracts/Certificates.sol" beforeDir="false" afterPath="$PROJECT_DIR$/../contracts/contracts/Certificates.sol" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/App.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/api/CertificateAPI.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/api/CertificateAPI.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/CheckCertificate.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/CheckCertificate.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/ConnectWallet.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ConnectWallet.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/RoleManagement.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/RoleManagement.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/IpfsStatus.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/IpfsStatus.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/IssueCertificate.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/LoginPage.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/LoginPage.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/UploadCertificate.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/UploadCertificate.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/index.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/shared/config.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/shared/config.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/shared/contract.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/shared/contract.json" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -54,6 +57,7 @@
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
     &quot;git-widget-placeholder&quot;: &quot;master&quot;,
+    &quot;last_opened_file_path&quot;: &quot;D:/MAI education/DApplication/dVerifyCertificateApplication/contracts&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
@@ -82,11 +86,28 @@
       <workItem from="1743951863802" duration="9857000" />
       <workItem from="1744059395844" duration="19778000" />
       <workItem from="1744564475685" duration="12610000" />
-      <workItem from="1744750894638" duration="14981000" />
+      <workItem from="1744750894638" duration="17870000" />
+      <workItem from="1745084640807" duration="3556000" />
+      <workItem from="1745173674320" duration="15694000" />
+      <workItem from="1745759289524" duration="2810000" />
+      <workItem from="1747416197113" duration="26468000" />
+      <workItem from="1747665189478" duration="2036000" />
+      <workItem from="1748179070307" duration="3526000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
 </project>

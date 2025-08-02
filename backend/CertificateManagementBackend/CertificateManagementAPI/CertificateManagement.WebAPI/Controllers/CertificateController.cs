@@ -100,11 +100,32 @@ public class CertificatesController : ControllerBase
             return Unauthorized("Не удалось определить адрес пользователя");
 
         var issuedCerts = await _context.Certificates
-            .Where(c => c.Issuer.Equals(issuerAddress, StringComparison.CurrentCultureIgnoreCase))
+            .Where(c => c.Issuer.ToLower() == issuerAddress.ToLower())
             .OrderByDescending(c => c.IssueDate)
             .ToListAsync(cancellationToken);
 
         return Ok(issuedCerts);
+    }
+
+    [HttpGet("owned-by/{address}")]
+    public async Task<IActionResult> GetCertificatesByUser(string address)
+    {
+        var certs = await _context.Certificates
+            .Where(c => c.IssuedTo.ToLower() == address.ToLower())
+            .OrderByDescending(c => c.IssueDate)
+            .ToListAsync();
+
+        return Ok(certs);
+    }
+
+    [HttpGet("api/certificates/{id}")]
+    public async Task<IActionResult> GetById(int id)
+    {
+        var cert = await _context.Certificates.FindAsync(id);
+        if (cert == null)
+            return NotFound();
+
+        return Ok(cert);
     }
 
 

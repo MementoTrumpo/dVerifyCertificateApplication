@@ -8,6 +8,11 @@ export const API_ENDPOINTS = {
     CERTIFICATES: {
         BASE: `${API_BASE_URL}/api/certificates`,
         getById: (id: number | string) => `${API_BASE_URL}/api/certificates/${id}`,
+        revoke: (id: number | string) => `${API_BASE_URL}/api/certificates/${id}/revoke`,
+        issuedByMe: `${API_BASE_URL}/api/certificates/issued`,
+        ownedBy: (address: number | string) => `${API_BASE_URL}/api/certificates/owned-by/${address}`,
+
+
     },
     USERS: {
         ALL: `${API_BASE_URL}/api/users`,

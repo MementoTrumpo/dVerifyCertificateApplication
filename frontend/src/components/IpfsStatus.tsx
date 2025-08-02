@@ -6,7 +6,9 @@ export default function IpfsStatus() {
     useEffect(() => {
         const checkConnection = async () => {
             try {
-                const res = await fetch("http://localhost:5001/api/v0/version");
+                const res = await fetch("http://localhost:5001/api/v0/version", {
+                    method: "POST" // ✅ вместо GET
+                });
                 if (!res.ok) throw new Error("Bad response");
                 setIsOnline(true);
             } catch {

@@ -47,6 +47,10 @@ export default function CheckCertificate({ provider }: CheckCertificateProps) {
                     <p><strong>IPFS:</strong> {certificate.ipfsHash}</p>
                 </div>
             )}
+
+            {certificate && certificate.isRevoked && (
+                <p className="text-red-600 font-semibold mt-2">❌ Сертификат отозван</p>
+            )}
         </div>
     );
 }

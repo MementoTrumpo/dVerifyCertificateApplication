@@ -44,25 +44,28 @@ export async function getCertificate(certId: number): Promise<any> {
 }
 
 // Выпуск сертификата
-export async function issueCertificate(ipfsHash: string, metadata: Metadata): Promise<void> {
+export async function issueCertificate(
+    ipfsHash: string,
+    metadata: Metadata,
+    issuedTo: string // 👈 новый параметр
+): Promise<void> {
   const blockchain = await getBlockchain();
   if (!blockchain) throw new Error("Не удалось подключиться к блокчейну");
 
   const { signer, contract } = blockchain;
 
   try {
-    const address = await signer.getAddress();
-    const tx = await contract.issueCertificate(address, ipfsHash);
+    const issuerAddress = await signer.getAddress(); // ✅ это тот, кто подписывает
+    const tx = await contract.issueCertificate(issuedTo, ipfsHash); // ✅ отправка в контракт
     await tx.wait();
 
     const blockchainHash = tx.hash;
-    const ownerId = address;
     const certificateId = generateCertificateId();
 
     const payload = {
       certificateId,
-      issuedTo: ownerId,
-      issuer: metadata.issuer || "Decentralized University",
+      issuedTo,                     // 👈 кому выдан
+      issuer: issuerAddress,        // 👈 кто выдал (MetaMask)
       blockchainHash,
       ipfsHash,
       issueDate: new Date().toISOString(),
@@ -71,7 +74,10 @@ export async function issueCertificate(ipfsHash: string, metadata: Metadata): Pr
 
     const response = await fetch(API_ENDPOINTS.CERTIFICATES.BASE, {
       method: "POST",
-      headers: { "Content-Type": "application/json" },
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${localStorage.getItem("token")}` // если используется авторизация
+      },
       body: JSON.stringify(payload),
     });
 
@@ -80,8 +86,24 @@ export async function issueCertificate(ipfsHash: string, metadata: Metadata): Pr
       throw new Error(`Ошибка сохранения сертификата в БД: ${text}`);
     }
   } catch (error) {
-    console.error("Ошибка загрузки сертификата:", error);
+    console.error("❌ Ошибка выпуска сертификата:", error);
     throw error;
+  }
+}
+
+
+// Отзыв сертификата
+export async function revokeCertificate(certId: number): Promise<void> {
+  const response = await fetch(API_ENDPOINTS.CERTIFICATES.revoke(certId), {
+    method: "PUT",
+    headers: {
+      Authorization: `Bearer ${localStorage.getItem("token")}`
+    }
+  });
+
+  if (!response.ok) {
+    const text = await response.text();
+    throw new Error(text);
   }
 }
 
@@ -91,3 +113,12 @@ function generateCertificateId(): number {
   const random = Math.floor(Math.random() * 1000);
   return Number(String(timestamp).slice(-6) + String(random).padStart(3, "0"));
 }
+
+
+// Получение сертификатов конкретного пользователя
+export async function getUserCertificates(address: string) {
+  const res = await fetch(`/api/certificates/owned-by/${address}`);
+  if (!res.ok) throw new Error("Не удалось получить сертификаты");
+  return await res.json();
+}
+
